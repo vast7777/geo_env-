@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
 import pdb
-
+#overall data
 df_isd = tools.read_isd_csv(r'C:\Users\15837\geo_env-\41024099999 .csv')
 ax = df_isd.plot(figsize=(12, 6), title="ISD data for Jeddah")
 fig = ax.get_figure()
@@ -16,7 +16,7 @@ print('-----------------------------')
 
 print(df_isd.idxmax())
 print('-----------------------------')
-
+#UTC+3 for Jeddah
 hi_max_time_utc = df_isd['HI'].idxmax()
 hi_max_time_local = hi_max_time_utc + pd.Timedelta(hours=3)
 print(f"HI_max_time_utc: {hi_max_time_utc}")
@@ -60,8 +60,8 @@ plt.tight_layout()
 plt.savefig('heat_index_comparison.png', dpi=300)
 plt.show()
 print('-----------------------------')
-#apply +3 C to the air temperature data and recalculate the HI warming to the air temperature data and recalculate the HI
-df_isd['TMP_future'] = df_isd['TMP'] + 3.0
+#apply +2.52 C to the air temperature data and recalculate the HI warming to the air temperature data and recalculate the HI
+df_isd['TMP_future'] = df_isd['TMP'] + 2.52
 df_isd['RH_future'] = tools.dewpoint_to_rh(df_isd['DEW'].values, df_isd['TMP_future'].values)
 df_isd['HI_future'] = tools.gen_heat_index(df_isd['TMP_future'].values, df_isd['RH_future'].values)
 
